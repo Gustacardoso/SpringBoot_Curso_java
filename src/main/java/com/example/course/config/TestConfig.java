@@ -8,25 +8,32 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.example.course.entities.Category;
 import com.example.course.entities.Order;
 import com.example.course.entities.User;
 import com.example.course.entities.enums.OrderStatus;
+import com.example.course.repositories.CategoryRepository;
 import com.example.course.repositories.OrderRepository;
 import com.example.course.repositories.UserRepository;
 
 @Configuration
 @Profile("test")
 public class TestConfig implements CommandLineRunner {
-	
+	//injeção de dependencia 
 	@Autowired
 	private UserRepository userRepository;
-	
+	@Autowired 
+	private CategoryRepository categoryRepository;
 	@Autowired
 	private OrderRepository orderRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
+		Category cat1 = new  Category(null,"Electronics");
+		Category cat2 = new  Category(null,"Books");
+		Category cat3 = new  Category(null,"Computers");
 		
+		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 		User u1 = new User(null, "Maria Cardoso", "maria@gsnfj", "12156", "1234567");
 		User u2 = new User(null, "gusta", "gu@", "4566", "5566");
 		//instant esta no padrao iso 8601
